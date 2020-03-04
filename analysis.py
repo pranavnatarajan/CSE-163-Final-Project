@@ -12,3 +12,8 @@ League based on past performance.
 
 import pandas as pd
 from process import process_data
+
+# Returns Processed Champions League DataSet from 2008-2015.
+# This is where the analysis starts.
+df = process_data(2008, 2015)
+print(df)
