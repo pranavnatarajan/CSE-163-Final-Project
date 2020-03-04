@@ -169,23 +169,31 @@ def process_data():
                 data[home]['Home_Wins_Reg'] += 1
                 data[home]['Total_Matches_Reg'] += 1
                 data[visitor]['Total_Matches_Reg'] += 1
+                data[home]['Home_Matches_Reg'] += 1
             else:
                 data[visitor]['Away_Wins_Reg'] += 1
                 data[home]['Total_Matches_Reg'] += 1
                 data[visitor]['Total_Matches_Reg'] += 1
+                data[home]['Home_Matches_Reg'] += 1
 
         data = pd.DataFrame().from_dict(data, orient='index')
         data['Reg_Win_%'] = (data['Home_Wins_Reg'] + data['Away_Wins_Reg']) / data['Total_Matches_Reg']
-        data['AET_Win_%'] = (data['Home_Wins_AET'] + data['Away_Wins_AET']) / data['Total_Matches_AET'] 
+        data['Reg_Tie_%'] = (data['Home_Ties_Reg'] + data['Away_Ties_Reg']) / data['Total_Matches_Reg']
+        data['AET_Win_%'] = (data['Home_Wins_AET'] + data['Away_Wins_AET']) / data['Total_Matches_AET']
+        data['AET_Tie_%'] = (data['Home_Ties_AET'] + data['Away_Ties_AET']) / data['Total_Matches_AET']
         data['Pens_Win_%'] = (data['Home_Wins_Pens'] + data['Away_Wins_Pens']) / data['Total_Matches_Pens']
 
         away_matches_reg = data['Total_Matches_Reg'] - data['Home_Matches_Reg']
         data['Away_Reg_Win_%'] = data['Away_Wins_Reg'] / away_matches_reg
         data['Home_Reg_Win_%'] = data['Home_Wins_Reg'] / data['Home_Matches_Reg']
+        data['Away_Reg_Tie_%'] = data['Away_Ties_Reg'] / away_matches_reg
+        data['Home_Reg_Tie_%'] = data['Home_Ties_Reg'] / data['Home_Matches_Reg']
 
         away_matches_AET = data['Total_Matches_AET'] - data['Home_Matches_AET']
         data['Away_AET_Win_%'] = data['Away_Wins_AET'] / away_matches_AET
         data['Home_AET_Win_%'] = data['Home_Wins_AET'] / data['Home_Matches_AET']
+        data['Away_AET_Tie_%'] = data['Away_Ties_AET'] / away_matches_AET
+        data['Home_AET_Tie_%'] = data['Home_Ties_AET'] / data['Home_Matches_AET']
 
         away_matches_pens = data['Total_Matches_Pens'] - data['Home_Matches_Pens']
         data['Away_Pens_Win_%'] = data['Away_Wins_Pens'] / away_matches_pens

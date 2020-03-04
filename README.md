@@ -46,22 +46,28 @@ Home_Goals_Conceded_Pens | Penalties conceded during penalty kicks while at home
 Away_Goals_Pens | Penalties scored during penalty kicks while away.
 Away_Goals_Conceded_Pens | Penalties conceded during penalty kicks while away.
 Reg_Win_% | Win % during regulation.
+Reg_Tie_% | Tie % during regulation.
 AET_Win_% | Win % during AET.
+AET_Tie_% | Tie % during AET.
 Pens_Win_% | Win % during penalties.
 Away_Reg_Win_% | Win % during regulation while away.
 Home_Reg_Win_% | Win % during regulation while at home.
+Away_Reg_Tie_% | Tie % during regulation while away.
+Home_Reg_Tie_% | Tie % during regulation while at home.
 Away_AET_Win_% | Win % during AET while away.
 Home_AET_Win_% | Win % during AET while at home.
+Away_AET_Tie_% | Tie % during AET while away.
+Home_AET_Tie_% | Tie % during AET while at home.
 Away_Pens_Win_% | Win % on penalties while away.
 Home_Pens_Win_% | Win % on penalties while at home.
-Avg_Home_Goals_Reg | Average home goals scored during regulation.
-Avg_Home_Goals_Conceded_Reg | Average home goals conceded during regulation.
-Avg_Away_Goals_Reg | Average away goals scored during regulation.
-Avg_Away_Goals_Conceded_Reg | Average away goals conceded during regulation.
-Avg_Home_Goals_AET | Average home goals scored during AET.
-Avg_Home_Goals_Conceded_AET | Average home goals conceded during AET.
-Avg_Away_Goals_AET | Average away goals scored during AET.
-Avg_Away_Goals_Conceded_AET | Average away goals conceded during AET.
+Avg_Home_Goals_Reg | Average goals scored during regulation while at home.
+Avg_Home_Goals_Conceded_Reg | Average goals conceded during regulation while at home.
+Avg_Away_Goals_Reg | Average goals scored during regulation while away.
+Avg_Away_Goals_Conceded_Reg | Average goals conceded during regulation while away.
+Avg_Home_Goals_AET | Average goals scored during AET while at home.
+Avg_Home_Goals_Conceded_AET | Average goals conceded during AET while at home.
+Avg_Away_Goals_AET | Average goals scored during AET while away.
+Avg_Away_Goals_Conceded_AET | Average goals conceded during AET while away.
 Avg_Home_Goals_Pens | Average penalties scored during penalty kicks while at home.
 Avg_Home_Goals_Conceded_Pens | Average penalties conceded during penalty kicks while at home.
 Avg_Away_Goals_Pens | Average penalties scored during penalty kicks while away.
