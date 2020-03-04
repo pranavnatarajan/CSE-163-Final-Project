@@ -12,7 +12,6 @@ and a csv file with the data is created in the current directory.
 
 
 import requests
-import re
 import os
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -39,8 +38,8 @@ def gather_data():
                 features='lxml'
             )
         except Exception:
-            raise Exception('No Internet Connection. Cannot access online data.' + \
-                            'Make sure Internet is connected. Data available at' + \
+            raise Exception('No Internet Connection. Cannot access online data. ' + \
+                            'Make sure Internet is connected. Data available at: ' + \
                             'https://github.com/jalapic/engsoccerdata/blob/master/data-raw/champs.csv')
         else:
             table = champ_league.find('table', class_='highlight tab-size js-file-line-container')
@@ -50,13 +49,9 @@ def gather_data():
                 data.append(td.get_text().replace('"', '').split(','))
 
             df = pd.DataFrame(data[1:-2], columns=data[0])
-            df['Date'] = pd.to_datetime(
-                df['Date'], infer_datetime_format=True, yearfirst=True, errors='ignore'
-            )
             df.to_csv('champions_league_dataset.csv')
-            return df
-    else:
-        return pd.read_csv('champions_league_dataset.csv')
+
+    return pd.read_csv('champions_league_dataset.csv', na_values='NA')
 
 
 if __name__ == '__main__':

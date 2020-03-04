@@ -12,5 +12,3 @@ League based on past performance.
 
 import pandas as pd
 from process import process_data
-
-df = process_data()
