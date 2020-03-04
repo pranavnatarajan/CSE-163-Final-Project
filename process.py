@@ -11,6 +11,7 @@ Processes the dataset to prepare it for our analysis.
 
 import os
 import pandas as pd
+import numpy as np
 from gather import gather_data
 
 # Information we will pull out of the dataset from GitHub
@@ -160,10 +161,11 @@ def process_data():
                     data[visitor]['Total_Matches_AET'] += 1
                     data[home]['Home_Ties_Reg'] += 1
                     data[visitor]['Away_Ties_Reg'] += 1
-                    data[home]['Home_Goals_AET'] += aethgoals - hgoals
-                    data[home]['Home_Goals_Conceded_AET'] += aetvgoals - vgoals
-                    data[visitor]['Away_Goals_AET'] += aetvgoals - vgoals
-                    data[visitor]['Away_Goals_Conceded_AET'] += aethgoals - hgoals
+                    if not (np.isnan(aethgoals) or np.isnan(aetvgoals)):
+                        data[home]['Home_Goals_AET'] += aethgoals - hgoals
+                        data[home]['Home_Goals_Conceded_AET'] += aetvgoals - vgoals
+                        data[visitor]['Away_Goals_AET'] += aetvgoals - vgoals
+                        data[visitor]['Away_Goals_Conceded_AET'] += aethgoals - hgoals
                     data[home]['Home_Matches_AET'] += 1
             elif hgoals > vgoals:
                 data[home]['Home_Wins_Reg'] += 1
