@@ -160,10 +160,10 @@ def process_data():
                     data[visitor]['Total_Matches_AET'] += 1
                     data[home]['Home_Ties_Reg'] += 1
                     data[visitor]['Away_Ties_Reg'] += 1
-                    data[home]['Home_Goals_AET'] += hgoals - aethgoals
-                    data[home]['Home_Goals_Conceded_AET'] += vgoals - aetvgoals
-                    data[visitor]['Away_Goals_AET'] += vgoals - aetvgoals
-                    data[visitor]['Away_Goals_Conceded_AET'] += hgoals - aethgoals
+                    data[home]['Home_Goals_AET'] += aethgoals - hgoals
+                    data[home]['Home_Goals_Conceded_AET'] += aetvgoals - vgoals
+                    data[visitor]['Away_Goals_AET'] += aetvgoals - vgoals
+                    data[visitor]['Away_Goals_Conceded_AET'] += aethgoals - hgoals
                     data[home]['Home_Matches_AET'] += 1
             elif hgoals > vgoals:
                 data[home]['Home_Wins_Reg'] += 1
