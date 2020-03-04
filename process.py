@@ -90,7 +90,7 @@ def process_data():
     data = {}
 
     df = filter_data()[
-        ['home', 'leg', 'visitor', 'hgoal', 'vgoal', 'aethgoal', 'aetvgoal', 'pens']
+        ['home', 'leg', 'visitor', 'hgoal', 'vgoal', 'aet', 'pens']
     ].to_dict(orient='records')
 
     if 'Champions_League_Processed.csv' not in os.listdir(os.getcwd()):
@@ -106,8 +106,14 @@ def process_data():
 
             hgoals = match['hgoal'] # Goals scored by home team
             vgoals = match['vgoal'] # Goals scored by visiting team
-            aethgoals = match['aethgoal'] # Goals scored by home team in added extra time (aet)
-            aetvgoals = match['aetvgoal'] # Goals scored by visiting team in added extra time (aet)
+            if type(match['aet']) == str:
+                # Goals scored by home/away team in added extra time (aet)
+                aethgoals, aetvgoals = match['aet'].split('-')
+                aethgoals = int(aethgoals)
+                aetvgoals = int(aetvgoals)
+            else:
+                aethgoals = 0
+                aetvgoals = 0
             data[home]['Total_Matches'] += 1
             data[visitor]['Total_Matches'] += 1
             data[home]['Home_Goals_Reg'] += hgoals
@@ -138,7 +144,7 @@ def process_data():
                         # If Teams A and B tied 4-4 on aggregate and the score of the first match
                         # was A: 2, B: 3 and the score of the second match was B: 1, A: 2, B would
                         # advance because B has 3 away goals, while A has 2.
-                        if match['pens'] != 'away goals':
+                        if match['pens'] != 'away goals' and type(match['pens']) == str:
                             home_pens, away_pens = match['pens'].split('-')
                             home_pens = int(home_pens)
                             away_pens = int(away_pens)
@@ -161,11 +167,12 @@ def process_data():
                     data[visitor]['Total_Matches_AET'] += 1
                     data[home]['Home_Ties_Reg'] += 1
                     data[visitor]['Away_Ties_Reg'] += 1
-                    if not (np.isnan(aethgoals) or np.isnan(aetvgoals)):
-                        data[home]['Home_Goals_AET'] += aethgoals - hgoals
-                        data[home]['Home_Goals_Conceded_AET'] += aetvgoals - vgoals
-                        data[visitor]['Away_Goals_AET'] += aetvgoals - vgoals
-                        data[visitor]['Away_Goals_Conceded_AET'] += aethgoals - hgoals
+                    aeth = aethgoals - hgoals if aethgoals else 0
+                    aetv = aetvgoals - vgoals if aetvgoals else 0
+                    data[home]['Home_Goals_AET'] += aeth
+                    data[home]['Home_Goals_Conceded_AET'] += aetv
+                    data[visitor]['Away_Goals_AET'] += aetv
+                    data[visitor]['Away_Goals_Conceded_AET'] += aeth
                     data[home]['Home_Matches_AET'] += 1
             elif hgoals > vgoals:
                 data[home]['Home_Wins_Reg'] += 1
@@ -222,4 +229,7 @@ def process_data():
 
 
 if __name__ == '__main__':
-    process_data()
+    df = process_data()
+    df = filter_data()
+    df = df[(df['home'] == 'Barcelona') | (df['visitor'] == 'Barcelona')]['aet']
+    #print(list(df))
