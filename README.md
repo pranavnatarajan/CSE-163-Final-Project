@@ -41,10 +41,6 @@ Away_Goals_AET | Away goals scored during AET.
 Away_Goals_Conceded_AET | Away goals conceded during AET.
 Home_Wins_Pens | Home wins from penalty kicks.
 Away_Wins_Pens | Away wins from penalty kicks.
-Home_Goals_Pens | Penalties scored during penalty kicks while at home.
-Home_Goals_Conceded_Pens | Penalties conceded during penalty kicks while at home.
-Away_Goals_Pens | Penalties scored during penalty kicks while away.
-Away_Goals_Conceded_Pens | Penalties conceded during penalty kicks while away.
 Reg_Win_% | Win % during regulation.
 Reg_Tie_% | Tie % during regulation.
 AET_Win_% | Win % during AET.
@@ -64,11 +60,5 @@ Avg_Home_Goals_Reg | Average goals scored during regulation while at home.
 Avg_Home_Goals_Conceded_Reg | Average goals conceded during regulation while at home.
 Avg_Away_Goals_Reg | Average goals scored during regulation while away.
 Avg_Away_Goals_Conceded_Reg | Average goals conceded during regulation while away.
-Avg_Home_Goals_AET | Average goals scored during AET while at home.
-Avg_Home_Goals_Conceded_AET | Average goals conceded during AET while at home.
-Avg_Away_Goals_AET | Average goals scored during AET while away.
-Avg_Away_Goals_Conceded_AET | Average goals conceded during AET while away.
-Avg_Home_Goals_Pens | Average penalties scored during penalty kicks while at home.
-Avg_Home_Goals_Conceded_Pens | Average penalties conceded during penalty kicks while at home.
-Avg_Away_Goals_Pens | Average penalties scored during penalty kicks while away.
-Avg_Away_Goals_Conceded_Pens | Average penalties conceded during penalty kicks while away.
+
+Average Goals for Penalties and AET was so bare that it only would have confused a ML Model which is why I left it out. We're talking Barcelona only had around 3 matches that went into extra time from 1994 to 2015 according to this dataset. The data for penalties and aet just wasn't useful.

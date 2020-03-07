@@ -15,5 +15,12 @@ from process import process_data
 
 # Returns Processed Champions League DataSet from 2008-2015.
 # This is where the analysis starts.
+
+"""
+I think a good idea is to do something like a "Goals per minute"
+for every team so that if our ML model predicts that a Knock-out round
+game will be tied at the end of regulation, we can use the goals per minute
+metric to predict the number of goals in extra time.
+"""
 df = process_data(2008, 2015)
-print(df)
+print(df.loc['Chelsea'])

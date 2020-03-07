@@ -1,10 +1,8 @@
 """
 Alex Eidt
 Pranav Natarajan
-
 CSE 163 AC
 Final Project
-
 Processes the dataset to prepare it for our analysis.
 """
 
@@ -35,23 +33,14 @@ stats = [
     'Home_Ties_AET',
     'Away_Wins_AET',
     'Away_Ties_AET',
-    'Home_Goals_AET',
-    'Home_Goals_Conceded_AET',
-    'Away_Goals_AET',
-    'Away_Goals_Conceded_AET',
     'Home_Wins_Pens',
     'Away_Wins_Pens',
-    'Home_Goals_Pens',
-    'Home_Goals_Conceded_Pens',
-    'Away_Goals_Pens',
-    'Away_Goals_Conceded_Pens'
 ]
 
 
 def filter_data():
     """
     Filters the Champions League Dataset.
-
     Returns
         A pandas DataFrame representing the filtered
         dataset.
@@ -84,11 +73,9 @@ def process_data(start=1994, end=2015):
     start to end) to get calculated values for each
     team concerning win percentages, average goals scored,
     as well as Home/Away totals.
-
     Parameters
         start - The year to begin looking at match data (inclusive)
         end   - The year to end looking at match data (inclusive)
-
     Returns
         A pandas DataFrame representing the processed data.
     """
@@ -98,7 +85,7 @@ def process_data(start=1994, end=2015):
     
     df = df[(df['Season'] >= start) & (df['Season'] <= end)]
     df = df[
-        ['home', 'leg', 'visitor', 'hgoal', 'vgoal', 'aet', 'pens']
+        ['home', 'leg', 'visitor', 'hgoal', 'vgoal', 'pens', 'aethgoal', 'aetvgoal']
     ].to_dict(orient='records')
 
     for match in df:
@@ -113,14 +100,10 @@ def process_data(start=1994, end=2015):
 
         hgoals = match['hgoal'] # Goals scored by home team
         vgoals = match['vgoal'] # Goals scored by visiting team
-        if type(match['aet']) == str:
-            # Goals scored by home/away team in added extra time (aet)
-            aethgoals, aetvgoals = match['aet'].split('-')
-            aethgoals = int(aethgoals)
-            aetvgoals = int(aetvgoals)
-        else:
-            aethgoals = 0
-            aetvgoals = 0
+
+        aethgoals = match['aethgoal']
+        aetvgoals = match['aetvgoal']
+        
         data[home]['Total_Matches'] += 1
         data[visitor]['Total_Matches'] += 1
         data[home]['Home_Goals_Reg'] += hgoals
@@ -148,21 +131,12 @@ def process_data(start=1994, end=2015):
                     # over both these games wins the tie and moves on in the competition.
                     # Away goals are more valuable than home goals, therefore, at tie between
                     # two teams can end as a tie, but there can still be a winner.
-                    # If Teams A and B tied 4-4 on aggregate and the score of the first match
-                    # was A: 2, B: 3 and the score of the second match was B: 1, A: 2, B would
-                    # advance because B has 3 away goals, while A has 2.
                     if match['pens'] != 'away goals' and type(match['pens']) == str:
                         home_pens, away_pens = match['pens'].split('-')
-                        home_pens = int(home_pens)
-                        away_pens = int(away_pens)
-                        if home_pens > away_pens:
+                        if int(home_pens) > int(away_pens):
                             data[home]['Home_Wins_Pens'] += 1
                         else:
                             data[home]['Away_Wins_Pens'] += 1
-                        data[home]['Home_Goals_Pens'] += home_pens
-                        data[home]['Home_Goals_Conceded_Pens'] += away_pens
-                        data[visitor]['Away_Goals_Pens'] += away_pens
-                        data[visitor]['Away_Goals_Conceded_Pens'] += home_pens
                         data[home]['Home_Matches_Pens'] += 1
                         data[home]['Total_Matches_Pens'] += 1
                         data[visitor]['Total_Matches_Pens'] += 1
@@ -174,12 +148,6 @@ def process_data(start=1994, end=2015):
                 data[visitor]['Total_Matches_AET'] += 1
                 data[home]['Home_Ties_Reg'] += 1
                 data[visitor]['Away_Ties_Reg'] += 1
-                aeth = aethgoals - hgoals if aethgoals else 0
-                aetv = aetvgoals - vgoals if aetvgoals else 0
-                data[home]['Home_Goals_AET'] += aeth
-                data[home]['Home_Goals_Conceded_AET'] += aetv
-                data[visitor]['Away_Goals_AET'] += aetv
-                data[visitor]['Away_Goals_Conceded_AET'] += aeth
                 data[home]['Home_Matches_AET'] += 1
         elif hgoals > vgoals:
             data[home]['Home_Wins_Reg'] += 1
@@ -220,16 +188,7 @@ def process_data(start=1994, end=2015):
     data['Avg_Away_Goals_Reg'] = data['Away_Goals_Reg'] / away_matches_reg
     data['Avg_Away_Goals_Conceded_Reg'] = data['Away_Goals_Conceded_Reg'] / away_matches_reg
 
-    data['Avg_Home_Goals_AET'] = data['Home_Goals_AET'] / data['Home_Matches_AET']
-    data['Avg_Home_Goals_Conceded_AET'] = data['Home_Goals_Conceded_AET'] / data['Home_Matches_AET']
-    data['Avg_Away_Goals_AET'] = data['Away_Goals_Conceded_AET'] / away_matches_AET
-    data['Avg_Away_Goals_Conceded_AET'] = data['Away_Goals_Conceded_AET'] / away_matches_AET
-
-    data['Avg_Home_Goals_Pens'] = data['Home_Goals_Pens'] / data['Home_Matches_Pens']
-    data['Avg_Home_Goals_Conceded_Pens'] = data['Home_Goals_Conceded_Pens'] / data['Home_Matches_Pens']
-    data['Avg_Away_Goals_Pens'] = data['Away_Goals_Pens'] / away_matches_pens
-    data['Avg_Away_Goals_Conceded_Pens'] = data['Away_Goals_Conceded_Pens'] / away_matches_pens
-
+    data.to_csv('Champions_League_Processed_Data.csv')
     return data
 
 
