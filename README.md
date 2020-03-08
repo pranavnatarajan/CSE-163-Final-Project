@@ -35,10 +35,6 @@ Home_Wins_AET | Home wins during AET.
 Home_Ties_AET | Home ties during AET. Leads to penalties.
 Away_Wins_AET | Away wins during AET.
 Away_Ties_AET | Away ties during AET. Leads to penalties.
-Home_Goals_AET | Home goals scored during AET.
-Home_Goals_Conceded_AET | Home goals conceded during AET.
-Away_Goals_AET | Away goals scored during AET.
-Away_Goals_Conceded_AET | Away goals conceded during AET.
 Home_Wins_Pens | Home wins from penalty kicks.
 Away_Wins_Pens | Away wins from penalty kicks.
 Reg_Win_% | Win % during regulation.
