@@ -12,6 +12,7 @@ League based on past performance.
 
 import pandas as pd
 from process import process_data
+from sklearn.tree import DecisionTreeClassifier
 
 # Returns Processed Champions League DataSet from 2008-2015.
 # This is where the analysis starts.
@@ -23,4 +24,6 @@ game will be tied at the end of regulation, we can use the goals per minute
 metric to predict the number of goals in extra time.
 """
 df = process_data(2008, 2015)
-print(df.loc['Chelsea'])
+print('This is how our initially processed dataset looks like: ')
+print(df.head)
+print(df.tail)
