@@ -23,4 +23,6 @@ game will be tied at the end of regulation, we can use the goals per minute
 metric to predict the number of goals in extra time.
 """
 df = process_data(2008, 2015)
-print(df.loc['Chelsea'])
+
+df['name'] = df.index
+print(df)
