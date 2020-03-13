@@ -1,0 +1,94 @@
+digraph {
+	graph [overlap=scale rankdir=BT splines=curved]
+	edge [arrowhead=normal]
+	"Borussia Dortmund" [label="Borussia Dortmund"]
+	node [color=gray90 shape=box style=rounded]
+	edge [arrowhead=normal arrowsize=1.1]
+	"Borussia Dortmund
+vs.
+AFC Ajax" -> "Borussia Dortmund"
+	edge [arrowhead=normal arrowsize=1.1]
+	node [color=gray90 shape=box style=rounded]
+	"Manchester City
+vs.
+Borussia Dortmund" -> "Borussia Dortmund
+vs.
+AFC Ajax"
+	"FC Porto
+vs.
+AFC Ajax" -> "Borussia Dortmund
+vs.
+AFC Ajax"
+	edge [arrowhead=normal arrowsize=1.1]
+	node [color=gray90 shape=box style=rounded]
+	"Manchester City
+vs.
+Atletico Madrid" -> "Manchester City
+vs.
+Borussia Dortmund"
+	"Manchester United
+vs.
+Borussia Dortmund" -> "Manchester City
+vs.
+Borussia Dortmund"
+	edge [arrowhead=normal arrowsize=1.1]
+	node [color=gray90 shape=box style=rounded]
+	"Schalke 04
+vs.
+Manchester City" -> "Manchester City
+vs.
+Atletico Madrid"
+	"Atletico Madrid
+vs.
+Juventus" -> "Manchester City
+vs.
+Atletico Madrid"
+	edge [arrowhead=normal arrowsize=1.1]
+	node [color=gray90 shape=box style=rounded]
+	"Manchester United
+vs.
+Paris Saint-Germain" -> "Manchester United
+vs.
+Borussia Dortmund"
+	"Tottenham Hotspur
+vs.
+Borussia Dortmund" -> "Manchester United
+vs.
+Borussia Dortmund"
+	edge [arrowhead=normal arrowsize=1.1]
+	node [color=gray90 shape=box style=rounded]
+	"Barcelona
+vs.
+FC Porto" -> "FC Porto
+vs.
+AFC Ajax"
+	"AFC Ajax
+vs.
+Liverpool" -> "FC Porto
+vs.
+AFC Ajax"
+	edge [arrowhead=normal arrowsize=1.1]
+	node [color=gray90 shape=box style=rounded]
+	"Olympique Lyon
+vs.
+Barcelona" -> "Barcelona
+vs.
+FC Porto"
+	"AS Roma
+vs.
+FC Porto" -> "Barcelona
+vs.
+FC Porto"
+	edge [arrowhead=normal arrowsize=1.1]
+	node [color=gray90 shape=box style=rounded]
+	"AFC Ajax
+vs.
+Real Madrid" -> "AFC Ajax
+vs.
+Liverpool"
+	"Liverpool
+vs.
+Bayern Munich" -> "AFC Ajax
+vs.
+Liverpool"
+}
