@@ -15,10 +15,6 @@ from graphviz import Digraph
 from MatchTree import MatchTree
 from analysis import get_data, calculate_coefficient
 
-# Change PATH setup for Graphviz folder here:
-# --------------------------GRAPHVIZ PATH SETUP------------------------- #
-os.environ['PATH'] += os.pathsep + 'C:\\Graphviz\\bin'
-# ---------------------------------------------------------------------- #
 
 def create_tree_helper(tree, node):
     """

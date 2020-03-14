@@ -1,10 +1,17 @@
 """
 Alex Eidt CSE 163 AC
 Pranav Natarajan CSE 163 AB
-This File will execute the main method from analysis.py,
-and run it
+
+CSE 163 A
+Final Project
+
+This File will execute the main methods from analysis.py
+and graph.py and run them.
 """
-from analysis import main
-# Running the analysis and presenting results.
-# From analysis.py
-main()
+from analysis import main as analysis
+from graph import main as graph
+
+
+if __name__ == '__main__':
+    analysis()
+    graph()

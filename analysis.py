@@ -1,6 +1,6 @@
 """
-Alex Eidt- CSE 163 AC
-Pranav Natarajan- CSE 163 AB
+Alex Eidt CSE 163 AC
+Pranav Natarajan CSE 163 AB
 
 CSE 163 A
 Final Project
@@ -275,8 +275,16 @@ def main():
     test_data = predict_coefficient(ml_df)
     # Visualizing Predictions
     visualize_prediction(test_data)
+    
+    # Getting data of top 10 teams by coefficient
+    top10 = df.sort_values(by=['coefficient'], ascending=False).head(10)
+    assert 'Barcelona' in top10.index, 'Barcelona not found in top 10 coefficients'
+    assert 'Real Madrid' in top10.index, 'Real Madrid not found in the top 10 coefficients'
+    assert 'Bayern Munich' in top10.index, 'Bayern Munich not found in the top 10 coefficients'
 
 
-# main method format
-if __name__ == 'main':
+if __name__ == '__main__':
     main()
+
+
+
