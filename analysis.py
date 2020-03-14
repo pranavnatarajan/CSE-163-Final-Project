@@ -209,10 +209,24 @@ def visualize_prediction(test_data):
 def present_series_results(ml_df):
     """
     Takes in the Machine Learning DataFrame as input,
-    and prints out the top and bottom 10 teams' Average Goals Scored
-    and Conceded home and away, as well as the coefficient.
+    and prints out the top and bottom 10 teams' Win percentages,
+    Average Goals Scored and Conceded home and away,
+    as well as the coefficient.
     """
+    # Sorting ml_df in descending order by coefficient
     ml_df = ml_df.sort_values(by=['coefficient'], ascending=False)
+    print('Win Percentages(Home)')
+    print()
+    print(ml_df['Reg_Win_%'].head(10))
+    print(ml_df['Reg_Win_%'].tail(10))
+    print()
+    print()
+    print('Win Percentages(Away)')
+    print()
+    print(ml_df['Away_Reg_Win_%'].head(10))
+    print(ml_df['Away_Reg_Win_%'].tail(10))
+    print()
+    print()
     print('Average Goals Scored(Home)')
     print(ml_df['Avg_Home_Goals_Reg'].head(10))
     print(ml_df['Avg_Home_Goals_Reg'].tail(10))
