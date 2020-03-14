@@ -86,7 +86,7 @@ def create_visualizations(df):
     plt.xticks(rotation=-60)
     plt.savefig('Away_Win_Percentage_data_Scored.png', bbox_inches='tight')
     plt.clf()
-    # Home Win Percentage vs Away Win Percentage 
+    # Home Win Percentage vs Away Win Percentage
     # of Top 10 Teams by Away Goals Conceded'
     sns.relplot(x='Away_Reg_Win_%',
                 y='Reg_Win_%',
@@ -114,16 +114,16 @@ def calculate_coefficient(df):
     under which we have
         Reg_Win_% = 15%
         Away_Reg_Win_% = 25%
-    2. Average Goals Scored(Home) = 8%   
+    2. Average Goals Scored(Home) = 8%
     3. Average Goals Scored(Away) = 22%
     4. Average Goals Conceded(Home) = 22%
-    5. Average Goals Conceded(Away) = 8% 
+    5. Average Goals Conceded(Away) = 8%
     """
     df['coefficient'] = (0.15 * df['Reg_Win_%'] + 0.25 * df['Away_Reg_Win_%']
-        + 0.08 * df['Avg_Home_Goals_Reg']
-        + 0.22 * df['Avg_Away_Goals_Reg']
-        - 0.22 * df['Avg_Home_Goals_Conceded_Reg']
-        - 0.08 * df['Avg_Away_Goals_Conceded_Reg'])
+                         + 0.08 * df['Avg_Home_Goals_Reg']
+                         + 0.22 * df['Avg_Away_Goals_Reg']
+                         - 0.22 * df['Avg_Home_Goals_Conceded_Reg']
+                         - 0.08 * df['Avg_Away_Goals_Conceded_Reg'])
     return df
 
 
@@ -133,9 +133,9 @@ def create_ML_dataframe(df):
     and creates the dataframe consisting of the relevant columns
     used by the coefficient, and thereby the Classifier Model
     """
-    # Getting relevant columns from 
+    # Getting relevant columns from
     # the initial processed data frame
-    ml_df = df[['name', 
+    ml_df = df[['name',
                 'Reg_Win_%',
                 'Away_Reg_Win_%',
                 'Avg_Home_Goals_Reg',
@@ -206,6 +206,42 @@ def visualize_prediction(test_data):
     plt.savefig('Regression_Visualization.png', bbox_inches='tight')
 
 
+def present_series_results(ml_df):
+    """
+    Takes in the Machine Learning DataFrame as input,
+    and prints out the top and bottom 10 teams' Average Goals Scored
+    and Conceded home and away, as well as the coefficient.
+    """
+    ml_df = ml_df.sort_values(by=['coefficient'], ascending=False)
+    print('Average Goals Scored(Home)')
+    print(ml_df['Avg_Home_Goals_Reg'].head(10))
+    print(ml_df['Avg_Home_Goals_Reg'].tail(10))
+    print()
+    print()
+    print('Average Goals Conceded(Home)')
+    print()
+    print(ml_df['Avg_Home_Goals_Conceded_Reg'].head(10))
+    print(ml_df['Avg_Home_Goals_Conceded_Reg'].tail(10))
+    print()
+    print()
+    print('Average Goals Scored(Away)')
+    print()
+    print(ml_df['Avg_Away_Goals_Reg'].head(10))
+    print(ml_df['Avg_Away_Goals_Reg'].tail(10))
+    print()
+    print()
+    print('Average Goals Conceded(Away)')
+    print()
+    print(ml_df['Avg_Away_Goals_Conceded_Reg'].head(10))
+    print(ml_df['Avg_Away_Goals_Conceded_Reg'].tail(10))
+    print()
+    print()
+    print('coefficient')
+    print()
+    print(ml_df['coefficient'].head(10))
+    print(ml_df['coefficient'].tail(10))
+
+
 def main():
     """
     The main function contains all functions in analysis.py
@@ -219,6 +255,8 @@ def main():
     create_visualizations(df)
     # Creating the Dataframe for machine learning
     ml_df = create_ML_dataframe(df)
+    # Presenting Results for researh questions so far
+    present_series_results(ml_df)
     # Predicting coefficient values using relevant data.
     test_data = predict_coefficient(ml_df)
     # Visualizing Predictions
