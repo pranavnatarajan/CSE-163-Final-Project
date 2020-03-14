@@ -1,16 +1,14 @@
 """
-Alex Eidt
-Pranav Natarajan
+Alex Eidt- CSE 163 AC
+Pranav Natarajan - CSE 163 AB
 
-CSE 163 AC
+CSE 163 A
 Final Project
 
 Checks if the dataset required for the analysis is present in the
 current directory. If not, data is parsed into a pandas DataFrame
 and a csv file with the data is created in the current directory.
 """
-
-
 import requests
 import os
 import pandas as pd

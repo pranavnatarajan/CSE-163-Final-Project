@@ -1,15 +1,15 @@
 """
-Alex Eidt
-Pranav Natarajan
-CSE 163 AC
+Alex Eidt- CSE 163 AC
+Pranav Natarajan - CSE 163 AB
+
+CSE 163 A
 Final Project
-Processes the dataset to prepare it for our analysis.
+
+Processes the parsed dataset to prepare it for
+our analysis.
 """
-
-
 import os
 import pandas as pd
-import numpy as np
 from gather import gather_data
 
 # Information we will pull out of the dataset from GitHub
@@ -17,10 +17,6 @@ stats = [
     'Total_Matches',
     'Total_Matches_Reg', # Reg = Regulation
     'Home_Matches_Reg',
-    'Total_Matches_AET', # AET = Added Extra Time
-    'Home_Matches_AET',
-    'Total_Matches_Pens', # Pens = Penalty Kicks
-    'Home_Matches_Pens',
     'Home_Wins_Reg',
     'Home_Ties_Reg',
     'Away_Wins_Reg',
@@ -29,12 +25,6 @@ stats = [
     'Home_Goals_Conceded_Reg',
     'Away_Goals_Reg',
     'Away_Goals_Conceded_Reg',
-    'Home_Wins_AET',
-    'Home_Ties_AET',
-    'Away_Wins_AET',
-    'Away_Ties_AET',
-    'Home_Wins_Pens',
-    'Away_Wins_Pens',
 ]
 
 
@@ -85,7 +75,7 @@ def process_data(start=1994, end=2015):
     
     df = df[(df['Season'] >= start) & (df['Season'] <= end)]
     df = df[
-        ['home', 'leg', 'visitor', 'hgoal', 'vgoal', 'pens', 'aethgoal', 'aetvgoal']
+        ['home', 'leg', 'visitor', 'hgoal', 'vgoal']
     ].to_dict(orient='records')
 
     for match in df:
@@ -100,9 +90,6 @@ def process_data(start=1994, end=2015):
 
         hgoals = match['hgoal'] # Goals scored by home team
         vgoals = match['vgoal'] # Goals scored by visiting team
-
-        aethgoals = match['aethgoal']
-        aetvgoals = match['aetvgoal']
         
         data[home]['Total_Matches'] += 1
         data[visitor]['Total_Matches'] += 1
@@ -121,34 +108,8 @@ def process_data(start=1994, end=2015):
                 data[visitor]['Total_Matches_Reg'] += 1
                 data[home]['Home_Matches_Reg'] += 1
             else:
-                if aethgoals == aetvgoals:
-                    # If the game is not decided in Regulation or Added Extra Time
-                    # the penalty score determines the winner.
-                    data[home]['Home_Ties_AET'] += 1
-                    data[visitor]['Away_Ties_AET'] += 1
-                    # In the Champions League, Knock out rounds have both teams play two
-                    # game (one home game for each) and whoever has the highest aggregate score
-                    # over both these games wins the tie and moves on in the competition.
-                    # Away goals are more valuable than home goals, therefore, at tie between
-                    # two teams can end as a tie, but there can still be a winner.
-                    if match['pens'] != 'away goals' and type(match['pens']) == str:
-                        home_pens, away_pens = match['pens'].split('-')
-                        if int(home_pens) > int(away_pens):
-                            data[home]['Home_Wins_Pens'] += 1
-                        else:
-                            data[home]['Away_Wins_Pens'] += 1
-                        data[home]['Home_Matches_Pens'] += 1
-                        data[home]['Total_Matches_Pens'] += 1
-                        data[visitor]['Total_Matches_Pens'] += 1
-                elif aethgoals > aetvgoals:
-                    data[home]['Home_Wins_AET'] += 1
-                else:
-                    data[visitor]['Away_Wins_AET'] += 1
-                data[home]['Total_Matches_AET'] += 1
-                data[visitor]['Total_Matches_AET'] += 1
                 data[home]['Home_Ties_Reg'] += 1
                 data[visitor]['Away_Ties_Reg'] += 1
-                data[home]['Home_Matches_AET'] += 1
         elif hgoals > vgoals:
             data[home]['Home_Wins_Reg'] += 1
             data[home]['Total_Matches_Reg'] += 1
@@ -163,25 +124,12 @@ def process_data(start=1994, end=2015):
     data = pd.DataFrame().from_dict(data, orient='index')
     data['Reg_Win_%'] = (data['Home_Wins_Reg'] + data['Away_Wins_Reg']) / data['Total_Matches_Reg']
     data['Reg_Tie_%'] = (data['Home_Ties_Reg'] + data['Away_Ties_Reg']) / data['Total_Matches_Reg']
-    data['AET_Win_%'] = (data['Home_Wins_AET'] + data['Away_Wins_AET']) / data['Total_Matches_AET']
-    data['AET_Tie_%'] = (data['Home_Ties_AET'] + data['Away_Ties_AET']) / data['Total_Matches_AET']
-    data['Pens_Win_%'] = (data['Home_Wins_Pens'] + data['Away_Wins_Pens']) / data['Total_Matches_Pens']
 
     away_matches_reg = data['Total_Matches_Reg'] - data['Home_Matches_Reg']
     data['Away_Reg_Win_%'] = data['Away_Wins_Reg'] / away_matches_reg
     data['Home_Reg_Win_%'] = data['Home_Wins_Reg'] / data['Home_Matches_Reg']
     data['Away_Reg_Tie_%'] = data['Away_Ties_Reg'] / away_matches_reg
     data['Home_Reg_Tie_%'] = data['Home_Ties_Reg'] / data['Home_Matches_Reg']
-
-    away_matches_AET = data['Total_Matches_AET'] - data['Home_Matches_AET']
-    data['Away_AET_Win_%'] = data['Away_Wins_AET'] / away_matches_AET
-    data['Home_AET_Win_%'] = data['Home_Wins_AET'] / data['Home_Matches_AET']
-    data['Away_AET_Tie_%'] = data['Away_Ties_AET'] / away_matches_AET
-    data['Home_AET_Tie_%'] = data['Home_Ties_AET'] / data['Home_Matches_AET']
-
-    away_matches_pens = data['Total_Matches_Pens'] - data['Home_Matches_Pens']
-    data['Away_Pens_Win_%'] = data['Away_Wins_Pens'] / away_matches_pens
-    data['Home_Pens_Win_%'] = data['Home_Wins_Pens'] / data['Home_Matches_Pens']
 
     data['Avg_Home_Goals_Reg'] = data['Home_Goals_Reg'] / data['Home_Matches_Reg']
     data['Avg_Home_Goals_Conceded_Reg'] = data['Home_Goals_Conceded_Reg'] / data['Home_Matches_Reg']

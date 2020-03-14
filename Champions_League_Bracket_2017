@@ -1,0 +1,94 @@
+digraph {
+	graph [overlap=scale rankdir=BT splines=curved]
+	edge [arrowhead=normal]
+	"Real Madrid" [label="Real Madrid"]
+	node [color=gray90 shape=box style=rounded]
+	edge [arrowhead=normal arrowsize=1.1]
+	"Real Madrid
+vs.
+Barcelona" -> "Real Madrid"
+	edge [arrowhead=normal arrowsize=1.1]
+	node [color=gray90 shape=box style=rounded]
+	"Bayern Munich
+vs.
+Real Madrid" -> "Real Madrid
+vs.
+Barcelona"
+	"FC Porto
+vs.
+Barcelona" -> "Real Madrid
+vs.
+Barcelona"
+	edge [arrowhead=normal arrowsize=1.1]
+	node [color=gray90 shape=box style=rounded]
+	"Manchester United
+vs.
+Bayern Munich" -> "Bayern Munich
+vs.
+Real Madrid"
+	"Tottenham Hotspur
+vs.
+Real Madrid" -> "Bayern Munich
+vs.
+Real Madrid"
+	edge [arrowhead=normal arrowsize=1.1]
+	node [color=gray90 shape=box style=rounded]
+	"Sevilla
+vs.
+Manchester United" -> "Manchester United
+vs.
+Bayern Munich"
+	"Besiktas
+vs.
+Bayern Munich" -> "Manchester United
+vs.
+Bayern Munich"
+	edge [arrowhead=normal arrowsize=1.1]
+	node [color=gray90 shape=box style=rounded]
+	"Tottenham Hotspur
+vs.
+Juventus" -> "Tottenham Hotspur
+vs.
+Real Madrid"
+	"Real Madrid
+vs.
+Paris Saint-Germain" -> "Tottenham Hotspur
+vs.
+Real Madrid"
+	edge [arrowhead=normal arrowsize=1.1]
+	node [color=gray90 shape=box style=rounded]
+	"FC Porto
+vs.
+Manchester City" -> "FC Porto
+vs.
+Barcelona"
+	"Barcelona
+vs.
+Shakhtar Donetsk" -> "FC Porto
+vs.
+Barcelona"
+	edge [arrowhead=normal arrowsize=1.1]
+	node [color=gray90 shape=box style=rounded]
+	"Liverpool
+vs.
+FC Porto" -> "FC Porto
+vs.
+Manchester City"
+	"Basel
+vs.
+Manchester City" -> "FC Porto
+vs.
+Manchester City"
+	edge [arrowhead=normal arrowsize=1.1]
+	node [color=gray90 shape=box style=rounded]
+	"Chelsea
+vs.
+Barcelona" -> "Barcelona
+vs.
+Shakhtar Donetsk"
+	"Shakhtar Donetsk
+vs.
+AS Roma" -> "Barcelona
+vs.
+Shakhtar Donetsk"
+}

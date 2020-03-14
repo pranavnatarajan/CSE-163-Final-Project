@@ -1,16 +1,26 @@
+"""
+Alex Eidt- CSE 163 AC
+Pranav Natarajan - CSE 163 AB
 
+CSE 163 A
+Final Project
+
+Creates the UEFA Champions League Bracket using GraphViz and
+stores it as a png file in the current directory.
+"""
 import os
 import random
 import pandas as pd
 from graphviz import Digraph
 from MatchTree import MatchTree
+from analysis import get_data, calculate_coefficient
 
 # Change PATH setup for Graphviz folder here:
 # --------------------------GRAPHVIZ PATH SETUP------------------------- #
 os.environ['PATH'] += os.pathsep + 'C:\\Graphviz\\bin'
 # ---------------------------------------------------------------------- #
 
-def create_tree(tree, node):
+def create_tree_helper(tree, node):
     """
     Parameters
         tree - The Graphviz tree being built up.
@@ -22,17 +32,18 @@ def create_tree(tree, node):
         tree.attr('node', shape='box', style='rounded', color='gray90')
         tree.edge(str(node.left), str(node))
         tree.edge(str(node.right), str(node))
-        create_tree(tree, node.left)
-        create_tree(tree, node.right)
+        create_tree_helper(tree, node.left)
+        create_tree_helper(tree, node.right)
 
 
-def main(data, league):
+def create_tree(data, league, year):
     """
     Parameters
-        data -   Pandas DataFrame mapping team names to predicted coefficients
+        data   - Pandas DataFrame mapping team names to predicted coefficients
                  from our Machine Learning Model.
         league - List of tuples showing Round of 16 Matchups for a given Champions
                  League season.
+        year   - The year of the Champions League season being simulated.  
 
     Creates a bracket showing the winners of each round of the Champions League starting
     with the round of 16 to the final. Winners determined by who has the higher coefficient.
@@ -84,14 +95,25 @@ def main(data, league):
     tree.attr('node', shape='box', style='rounded', color='gray90')
     tree.attr('edge', arrowhead='normal', arrowsize='1.1')
     tree.edge(str(winner.left), winning_team)
-    create_tree(tree, winner.left)
+    create_tree_helper(tree, winner.left)
 
-    tree.render('Champions_League_Bracket', view=False, format='png')
+    tree.render(f'Champions_League_Bracket_{year}', view=False, format='png')
 
 
-if __name__ == '__main__':
+def main():
+    # 2017-18 Champions League Round of 16 Matchups
+    league_2017 = [
+        ('Sevilla', 'Manchester United'),
+        ('Besiktas', 'Bayern Munich'),
+        ('Tottenham Hotspur', 'Juventus'),
+        ('Real Madrid', 'Paris Saint-Germain'),
+        ('Liverpool', 'FC Porto'),
+        ('Basel', 'Manchester City'),
+        ('Chelsea', 'Barcelona'),
+        ('Shakhtar Donetsk', 'AS Roma')
+    ]
     # 2018-19 Champions League Round of 16 Matchups
-    league = [
+    league_2018 = [
         ('Schalke 04', 'Manchester City'),
         ('Atletico Madrid', 'Juventus'),
         ('Manchester United', 'Paris Saint-Germain'),
@@ -101,13 +123,17 @@ if __name__ == '__main__':
         ('AFC Ajax', 'Real Madrid'),
         ('Liverpool', 'Bayern Munich')
     ]
-    teams = []
-    for x, y in league:
-        teams.append(x)
-        teams.append(y)
-    coefficients = []
-    for team in teams:
-        coefficients.append([team, random.random() * (random.random() + (5 * random.random()))])
-    coefficients = pd.DataFrame(coefficients, columns=['team', 'coefficient'])
-    coefficients.set_index('team', inplace=True)
-    main(coefficients, league)
+
+    df = calculate_coefficient(get_data())
+    df = pd.DataFrame(df['coefficient']).to_dict(orient='split')
+    df = pd.DataFrame(list(zip(df['index'], df['data'])), columns=['team', 'coefficient'])
+    df.set_index('team', inplace=True)
+    df['coefficient'] = df['coefficient'].apply(pd.Series)
+    
+    # Create GraphViz Trees
+    create_tree(df, league_2017, 2017)
+    create_tree(df, league_2018, 2018)
+
+
+if __name__ == '__main__':
+    main()

@@ -19,10 +19,6 @@ Column Name | Description
 Total_Matches | Total Matches
 Total_Matches_Reg | Total Matches that ended in Regulation. (If a game ended in AET, this does not increment the **Total_Matches_Reg**)
 Home_Matches_Reg | Total Home matches that ended in Regulation. 
-Total_Matches_AET | All matches that were decided after AET.
-Home_Matches_AET | Home Matches that were decided after AET.
-Total_Matches_Pens | All matches that ended in Penalty Kicks.
-Home_Matches_Pens | All home matches that ended in Penalty Kicks.
 Home_Wins_Reg | Home wins during regulation.
 Home_Ties_Reg | Home ties during regulation. If a game goes into AET, then this counts as a tie during regulation.
 Away_Wins_Reg | Away wins during regulation.
@@ -31,27 +27,12 @@ Home_Goals_Reg | Goals scored during regulation at home.
 Home_Goals_Conceded_Reg | Goals conceded during regulation at home.
 Away_Goals_Reg | Goals scored during regulation away.
 Away_Goals_Conceded_Reg | Goals conceded during regulation away.
-Home_Wins_AET | Home wins during AET.
-Home_Ties_AET | Home ties during AET. Leads to penalties.
-Away_Wins_AET | Away wins during AET.
-Away_Ties_AET | Away ties during AET. Leads to penalties.
-Home_Wins_Pens | Home wins from penalty kicks.
-Away_Wins_Pens | Away wins from penalty kicks.
 Reg_Win_% | Win % during regulation.
 Reg_Tie_% | Tie % during regulation.
-AET_Win_% | Win % during AET.
-AET_Tie_% | Tie % during AET.
-Pens_Win_% | Win % during penalties.
 Away_Reg_Win_% | Win % during regulation while away.
 Home_Reg_Win_% | Win % during regulation while at home.
 Away_Reg_Tie_% | Tie % during regulation while away.
 Home_Reg_Tie_% | Tie % during regulation while at home.
-Away_AET_Win_% | Win % during AET while away.
-Home_AET_Win_% | Win % during AET while at home.
-Away_AET_Tie_% | Tie % during AET while away.
-Home_AET_Tie_% | Tie % during AET while at home.
-Away_Pens_Win_% | Win % on penalties while away.
-Home_Pens_Win_% | Win % on penalties while at home.
 Avg_Home_Goals_Reg | Average goals scored during regulation while at home.
 Avg_Home_Goals_Conceded_Reg | Average goals conceded during regulation while at home.
 Avg_Away_Goals_Reg | Average goals scored during regulation while away.
