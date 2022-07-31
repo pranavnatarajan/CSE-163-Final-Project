@@ -1,7 +1,9 @@
 # Champions League Data Analysis Project
 ## Alex Eidt and Pranav Natarajan
 
+[To view the presentation slides, plese look at `UEFA Champions League Data Analysis Project.pdf`]
 
+Data Specification:
 ***
 
 Key | Description
