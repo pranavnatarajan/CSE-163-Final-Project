@@ -38,4 +38,4 @@ Avg_Home_Goals_Conceded_Reg | Average goals conceded during regulation while at 
 Avg_Away_Goals_Reg | Average goals scored during regulation while away.
 Avg_Away_Goals_Conceded_Reg | Average goals conceded during regulation while away.
 
-Average Goals for Penalties and AET was so bare that it only would have confused a ML Model which is why I left it out. We're talking Barcelona only had around 3 matches that went into extra time from 1994 to 2015 according to this dataset. The data for penalties and aet just wasn't useful.
+Average Goals for Penalties and AET were scarce, which is why we left it out from our analyses.
